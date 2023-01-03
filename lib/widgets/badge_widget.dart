@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_badge_generator/config/config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 enum BadgeWidgetType {
   selected,
@@ -64,13 +65,12 @@ class BadgeWidget extends StatelessWidget {
                             1,
                             0,
                           ]),
-                    child: Stack(
-                      children: [
-                        Image.asset("assets/images/badges/badgebase.png"),
-                        if (imagePath != null)
-                          Image.asset("assets/images/badges/${imagePath!}"),
-                      ],
-                    ),
+                    child: (imagePath != null)
+                        ? imagePath!.contains(".svg")
+                            ? SvgPicture.asset(
+                                "assets/images/badges/${imagePath!}")
+                            : Image.asset("assets/images/badges/${imagePath!}")
+                        : SvgPicture.asset("assets/images/badges/none.svg"),
                   ),
                 ),
               ),
